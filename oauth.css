@@ -1,0 +1,18 @@
+.oauth-panel {
+  margin-top: 18px;
+  border: 1px solid #d6e7e4;
+  background: #f7fbfa;
+  padding: 16px;
+  border-radius: 14px;
+}
+
+.oauth-panel h3 { margin-top: 0; }
+.oauth-button { background: #dce6e8; color: #53686f; }
+.verified-name { margin-top: 14px; padding: 14px; background: #e4f7e9; border-radius: 12px; }
+.verified-name p { margin: 0 0 4px; }
+.verified-name strong { display: block; font-size: 20px; margin-bottom: 12px; overflow-wrap: anywhere; }
+
+.name-panel { margin: 18px 0; padding: 16px; background: #f7fbfa; border: 1px solid #d6e7e4; border-radius: 14px; }
+.name-panel label { display: block; margin-bottom: 7px; font-weight: 800; }
+.name-panel input { width: 100%; border: 1px solid #b9cece; border-radius: 12px; padding: 13px 14px; font-size: 16px; }
+.name-panel input:focus { outline: 3px solid #f5bf61; outline-offset: 1px; border-color: #a77015; }

@@ -7,6 +7,7 @@
   <meta name="description" content="Threads吹奏楽部の日本語オンライン部室。顔出しなし、文字チャット、聞き専でも参加できます。">
   <title>放課後の音楽室 | Threads吹奏楽部</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="oauth.css">
 </head>
 <body>
   <header>
@@ -18,7 +19,7 @@
   </header>
   <main class="main wrap">
     <section class="card lookup-card" aria-labelledby="lookup-heading">
-      <span class="status">Ver.2.0 · 部員名簿の登録確認</span>
+      <span class="status">Ver.2.1 · かんたん参加</span>
       <h2 id="lookup-heading">参加前に登録状況を確認できます</h2>
       <p class="muted">Threadsのユーザー名を入力すると、名簿に同じユーザー名があるかだけを確認します。<strong>この確認は本人認証ではありません。</strong>メールアドレス、管理メモ、訂正履歴などは表示しません。</p>
       <form id="lookupForm" novalidate>
@@ -27,21 +28,40 @@
           <input id="threadsUsername" name="threadsUsername" type="text" inputmode="text" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="31" placeholder="@ユーザー名" aria-describedby="usernameHelp lookupResult">
           <button class="btn lookup-button" id="lookupButton" type="submit">登録を確認</button>
         </div>
-        <p class="mini" id="usernameHelp">@の有無や大文字・小文字は自動で整えます。確認結果だけを表示し、Jitsiの表示名には自動で引き継ぎません。</p>
+        <p class="mini" id="usernameHelp">@の有無や大文字・小文字は自動で整えます。入力したIDは下の参加用表示名の初期値になりますが、本人認証済みにはなりません。</p>
       </form>
       <div class="lookup-result" id="lookupResult" role="status" aria-live="polite" hidden></div>
       <div class="privacy-note"><strong>プライバシーについて</strong><p>ユーザー名だけで登録の有無を確認できるため、第三者が在籍を推測する可能性があります。自分のアカウントだけを確認し、結果を転載しないでください。入力だけで本人確認済みにはなりません。</p></div>
+      <div class="oauth-panel" aria-labelledby="oauth-heading">
+        <h3 id="oauth-heading">Threadsで本人確認（準備中）</h3>
+        <p class="muted">Meta公式認証と公開審査が完了するまでは利用できません。ユーザー名の入力だけで名簿の表示名を返すことはありません。</p>
+        <button class="btn oauth-button" id="oauthButton" type="button" disabled>Threadsで本人確認</button>
+        <div id="verifiedNamePanel" class="verified-name" hidden>
+          <p>本人確認済みの名簿表示名</p>
+          <strong id="verifiedDisplayName"></strong>
+          <button class="btn secondary" id="verifiedCopyNameBtn" type="button">📋 表示名をコピー</button>
+          <p class="mini" id="verifiedCopyNameMsg" role="status" aria-live="polite"></p>
+        </div>
+      </div>
     </section>
     <section class="card" aria-labelledby="join-heading">
       <span class="status">🎶 名簿未登録・確認不能でもゲスト参加できます</span>
       <h2 id="join-heading">声でも、文字でも、聞くだけでも。</h2>
       <p class="muted">名前はニックネームでOK。顔出しは不要です。参加リンクではマイク・カメラを初期OFFにする設定を指定していますが、<strong>入室前に両方がOFFか必ず画面で確認</strong>してください。</p>
+      <div class="name-panel">
+        <label for="participantName">Jitsiで使う表示名</label>
+        <input id="participantName" type="text" autocomplete="nickname" maxlength="80" placeholder="ニックネームまたは @Threads ID">
+        <p class="mini">自由に編集できます。名簿の登録表示名ではなく、あなたが入力した参加用の名前です。</p>
+        <button class="btn secondary" id="copyNameBtn" type="button">📋 名前をコピー</button>
+        <p class="mini" id="copyNameMsg" role="status" aria-live="polite"></p>
+      </div>
       <div class="choices">
         <div class="choice"><span>🎤</span>通常の参加<small>話すときだけマイクをON</small></div>
         <div class="choice"><span>👂</span>聞き専<small>マイク・カメラをOFF</small></div>
         <div class="choice"><span>💬</span>文字チャットのみ<small>両方OFFでチャットを使用</small></div>
       </div>
-      <a class="btn primary" id="joinBtn" href="https://meet.jit.si/ThreadsSuisougakubu2026Room#config.startWithAudioMuted=true&amp;config.startWithVideoMuted=true&amp;config.defaultLanguage=ja" target="_blank" rel="noopener noreferrer external">オンライン部室に参加する ↗</a>
+      <a class="btn primary" id="joinBtn" href="https://meet.jit.si/ThreadsSuisougakubu2026Room#config.startWithAudioMuted=true&amp;config.startWithVideoMuted=true&amp;config.defaultLanguage=ja" target="_blank" rel="noopener noreferrer external">オンライン部室に入る ↗</a>
+      <p class="mini">コピーした名前をJitsiの表示名欄へ貼り付けてください。入室後もJitsi側で変更できます。</p>
       <div class="callout">📱 <strong>スマホの方へ：</strong>SafariまたはChromeで開くと参加しやすくなります。iPhoneで英語画面が出たら<strong>「Join in browser」</strong>を押してください。Jitsiアプリで開く方法も選べます。</div>
     </section>
     <section class="card">
@@ -53,7 +73,7 @@
     </section>
     <section class="card">
       <h2>はじめての方へ</h2>
-      <ol class="steps"><li>必要なら上のフォームで登録状況を確認する</li><li><strong>「オンライン部室に参加する」</strong>を押す</li><li>ブラウザ参加またはJitsiアプリを選ぶ</li><li>ニックネームを入力する</li><li><strong>参加前にマイクとカメラが両方OFFか確認する</strong></li></ol>
+      <ol class="steps"><li>必要なら上のフォームで登録状況を確認する</li><li>表示名を確認・編集して「名前をコピー」を押す</li><li><strong>「オンライン部室に入る」</strong>を押す</li><li>ブラウザ参加またはJitsiアプリを選び、コピーした名前を貼り付ける</li><li><strong>参加前にマイクとカメラが両方OFFか確認する</strong></li></ol>
       <p class="muted">端末やJitsiアプリにより初期OFF設定が反映されない場合があります。表示を確認してから参加してください。</p>
     </section>
     <section class="card">
